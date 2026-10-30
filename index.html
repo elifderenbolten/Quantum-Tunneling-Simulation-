@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quantum Tunneling — Finite Square Barrier</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:ital,wght@0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="app">
+      <aside class="panel" id="controls">
+        <header class="brand">
+          <p class="eyebrow">2nd-year QM demo</p>
+          <h1>Quantum Tunneling</h1>
+          <p class="tagline">Finite square barrier scattering states</p>
+        </header>
+
+        <section class="regime" id="regime-banner" aria-live="polite">
+          <span class="regime-label" id="regime-label">Tunneling</span>
+          <p id="regime-text">
+            Particle energy is below the barrier. Classically forbidden —
+            quantum mechanics still allows a nonzero transmission probability.
+          </p>
+        </section>
+
+        <section class="sliders">
+          <label class="slider-row">
+            <span class="slider-meta">
+              <span>Energy <em>E</em></span>
+              <output id="e-out" for="e-slider">3.2</output>
+            </span>
+            <input id="e-slider" type="range" min="0.2" max="12" step="0.05" value="3.2" />
+          </label>
+
+          <label class="slider-row">
+            <span class="slider-meta">
+              <span>Barrier height <em>V₀</em></span>
+              <output id="v-out" for="v-slider">5.0</output>
+            </span>
+            <input id="v-slider" type="range" min="0.5" max="12" step="0.05" value="5" />
+          </label>
+
+          <label class="slider-row">
+            <span class="slider-meta">
+              <span>Barrier width <em>L</em></span>
+              <output id="l-out" for="l-slider">1.2</output>
+            </span>
+            <input id="l-slider" type="range" min="0.4" max="5" step="0.05" value="1.2" />
+          </label>
+
+          <label class="slider-row">
+            <span class="slider-meta">
+              <span>Mass <em>m</em></span>
+              <output id="m-out" for="m-slider">1.0</output>
+            </span>
+            <input id="m-slider" type="range" min="0.4" max="3" step="0.05" value="1" />
+          </label>
+        </section>
+
+        <section class="metrics" aria-label="Transmission and reflection">
+          <div class="metric">
+            <span class="metric-label">Transmission <em>T</em></span>
+            <span class="metric-value" id="t-value">—</span>
+            <div class="bar"><div class="bar-fill t" id="t-bar"></div></div>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Reflection <em>R</em></span>
+            <span class="metric-value" id="r-value">—</span>
+            <div class="bar"><div class="bar-fill r" id="r-bar"></div></div>
+          </div>
+          <p class="unit-note">Units: ħ = 1. Classical: T = 0 when E &lt; V₀, T = 1 when E &gt; V₀.</p>
+        </section>
+
+        <section class="legend">
+          <h2>What you are seeing</h2>
+          <ul>
+            <li><span class="swatch incident"></span> Incident + reflected wave (x &lt; 0)</li>
+            <li><span class="swatch barrier"></span> Barrier region — exponential decay if E &lt; V₀</li>
+            <li><span class="swatch transmit"></span> Transmitted wave (x &gt; L)</li>
+            <li><span class="swatch density"></span> Surface height = probability density |ψ|²</li>
+          </ul>
+          <p class="hint">
+            Drag to orbit the camera. The ribbon shows Re(ψ) evolving in time;
+            the surface is |ψ|². Turning points sit at the barrier faces when E &lt; V₀.
+          </p>
+        </section>
+      </aside>
+
+      <main class="viewport">
+        <canvas id="c"></canvas>
+        <div class="hud">
+          <span id="hud-mode">E &lt; V₀ · tunneling</span>
+          <span id="hud-orbit">orbit · scroll zoom</span>
+        </div>
+      </main>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
